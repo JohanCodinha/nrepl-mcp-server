@@ -1,6 +1,6 @@
 # nREPL MCP Server
 
-A [Model Context Protocol (MCP)](https://github.com/modelcontextprotocol) server designed for **Anthropic Claude MCP clients**, such as **Claude Desktop** or **CLine** in VSCode. This server enables interaction with a running **Clojure nREPL instance**, allowing evaluation of Clojure code, namespace inspection, and other utilities via MCP.
+A [Model Context Protocol (MCP)](https://github.com/modelcontextprotocol) server designed for MCP clients, such as **Claude Desktop** or **CLine** in VSCode. This server can be used with any LLM when used with CLine. This server enables interaction with a running **Clojure nREPL instance**, allowing evaluation of Clojure code, namespace inspection, and other utilities via MCP.
 
 ---
 
@@ -40,20 +40,6 @@ To use this server with **CLine** or **Claude Desktop**, follow these steps:
 4. Save and restart the client to apply changes.
 
 This will allow the client to communicate with the nREPL MCP server via standard input/output.
-
-To use this server with **CLine** or **Claude Desktop**, follow these steps:
-
-1. Open **CLine** in VSCode or **Claude Desktop**.
-2. Navigate to the **MCP Settings**.
-3. Add a new MCP server and set the command to:
-   ```bash
-   npx nrepl-mcp-server
-   ```
-4. Save and restart the client to apply changes.
-
-This will allow the client to communicate with the nREPL MCP server via standard input/output.
-
-
 
 ### Install via `npx`
 
@@ -140,4 +126,3 @@ Contributions are welcome! If you have feature suggestions or bug reports, pleas
 ## License
 
 This project is licensed under the **MIT License**. Feel free to modify and distribute according to its terms.
-
