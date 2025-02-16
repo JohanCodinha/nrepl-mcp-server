@@ -47,7 +47,7 @@ To use this server with **CLine** or **Claude Desktop**, follow these steps:
 2. Navigate to the **MCP Settings**.
 3. Add a new MCP server and set the command to:
    ```bash
-   npx nrepl-mcp
+   npx nrepl-mcp-server
    ```
 4. Save and restart the client to apply changes.
 
@@ -60,7 +60,7 @@ This will allow the client to communicate with the nREPL MCP server via standard
 To quickly run the server without cloning the repository:
 
 ```bash
-npx nrepl-mcp
+npx nrepl-mcp-server
 ```
 
 ### Manual Installation
