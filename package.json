@@ -1,0 +1,28 @@
+{
+  "name": "nrepl-mcp-server",
+  "version": "1.0.0",
+  "description": "MCP server for interacting with nREPL",
+  "type": "module",
+  "main": "build/index.js",
+  "bin": {
+    "nrepl-mcp-server": "build/index.js"
+  },
+  "scripts": {
+    "build": "tsc && chmod +x build/index.js",
+    "start": "node build/index.js",
+    "dev": "ts-node --esm src/index.ts"
+  },
+  "keywords": [
+    "mcp",
+    "nrepl",
+    "clojure"
+  ],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "ts-node": "^10.9.2"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.5.0"
+  }
+}
