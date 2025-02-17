@@ -1,4 +1,5 @@
 # nREPL MCP Server
+[![smithery badge](https://smithery.ai/badge/@JohanCodinha/nrepl-mcp-server)](https://smithery.ai/server/@JohanCodinha/nrepl-mcp-server)
 
 A [Model Context Protocol (MCP)](https://github.com/modelcontextprotocol) server designed for MCP clients, such as **Claude Desktop** or **CLine** in VSCode. This server can be used with any LLM when used with CLine. This server enables interaction with a running **Clojure nREPL instance**, allowing evaluation of Clojure code, namespace inspection, and other utilities via MCP.
 
@@ -15,6 +16,14 @@ A [Model Context Protocol (MCP)](https://github.com/modelcontextprotocol) server
 ---
 
 ## Installation & Setup
+
+### Installing via Smithery
+
+To install nREPL MCP Server for Claude Desktop automatically via [Smithery](https://smithery.ai/server/@JohanCodinha/nrepl-mcp-server):
+
+```bash
+npx -y @smithery/cli install @JohanCodinha/nrepl-mcp-server --client claude
+```
 
 ### Installing in CLine (VSCode) or Claude Desktop
 
