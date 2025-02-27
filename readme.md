@@ -2,6 +2,8 @@
 
 A [Model Context Protocol (MCP)](https://github.com/modelcontextprotocol) server designed for MCP clients, such as **Claude Desktop** or **CLine** in VSCode. This server can be used with any LLM when used with CLine. This server enables interaction with a running **Clojure nREPL instance**, allowing evaluation of Clojure code, namespace inspection, and other utilities via MCP.
 
+<a href="https://glama.ai/mcp/servers/st66euqse7"><img width="380" height="200" src="https://glama.ai/mcp/servers/st66euqse7/badge" alt="nREPL Server MCP server" /></a>
+
 ---
 
 ## Features
