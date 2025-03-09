@@ -88,9 +88,10 @@ export class NReplClient {
   }
 
   private handleData(data: Buffer) {
-    this.buffer += data.toString();
-    console.error('Received data:', data.toString());
-    
+    // Explicitly use UTF-8 encoding for all string operations
+    this.buffer += data.toString('utf8');
+    console.error('Received data:', data.toString('utf8'));
+
     // Try to process complete messages from the buffer
     let processed = 0;
     while (processed < this.buffer.length) {
@@ -127,7 +128,7 @@ export class NReplClient {
     return new Promise((resolve, reject) => {
       const responses: NReplResponse[] = [];
       const id = Math.random().toString(36).slice(2);
-      
+
       console.error('Sending message:', message);
       const timeout = setTimeout(() => {
         this.messageCallbacks.delete(id);
@@ -167,9 +168,15 @@ export class NReplClient {
     return newSession;
   }
 
+  // Helper function to strip ANSI color codes from strings
+  private stripAnsiColorCodes(str: string): string {
+    // This regex matches ANSI escape sequences used for terminal colors
+    return str.replace(/\x1B\[\d+m/g, '');
+  }
+
   async eval(code: string): Promise<string> {
     await this.ensureConnected();
-    
+
     if (!this.sessionId) {
       throw new Error('No active session');
     }
@@ -183,18 +190,23 @@ export class NReplClient {
     // Collect any errors
     const errors = responses
       .map((r) => r.ex || r['root-ex'] || r.err)
-      .filter(Boolean);
+      .filter(Boolean)
+      .map(err => this.stripAnsiColorCodes(err as string));
+
     if (errors.length > 0) {
       const errorMsg = errors.join('\n');
       this.lastError = errorMsg;
       throw new Error(errorMsg);
     }
 
-    // Collect any output
+    // Collect any output and strip ANSI color codes
     const output = responses
-      .map((r) => r.value || r.out)
+      .map((r) => {
+        const text = r.value || r.out;
+        return text ? this.stripAnsiColorCodes(text) : null;
+      })
       .filter(Boolean);
-    
+
     return output.join('\n');
   }
 

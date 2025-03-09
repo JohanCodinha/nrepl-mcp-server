@@ -9,10 +9,34 @@ export type BencodeValue =
   | BencodeValue[]
   | { [key: string]: BencodeValue };
 
+// Helper function to calculate UTF-8 byte length of a string
+function getUTF8ByteLength(str: string): number {
+  let byteLength = 0;
+  for (let i = 0; i < str.length; i++) {
+    const charCode = str.charCodeAt(i);
+    if (charCode < 128) {
+      // ASCII character (1 byte)
+      byteLength += 1;
+    } else if (charCode < 2048) {
+      // 2-byte character
+      byteLength += 2;
+    } else if (charCode < 65536) {
+      // 3-byte character
+      byteLength += 3;
+    } else {
+      // 4-byte character
+      byteLength += 4;
+    }
+  }
+  return byteLength;
+}
+
 export class BencodeEncoder {
   static encode(value: BencodeValue): string {
     if (typeof value === 'string') {
-      return `${value.length}:${value}`;
+      // Use byte length for UTF-8 strings, not character count
+      const byteLength = getUTF8ByteLength(value);
+      return `${byteLength}:${value}`;
     }
     if (typeof value === 'number') {
       return `i${value}e`;
@@ -80,12 +104,26 @@ export class BencodeDecoder {
     if (colonPos === -1) {
       throw new Error('Invalid string format');
     }
-    const length = parseInt(this.data.slice(this.pos, colonPos), 10);
+    
+    // Get the declared length in bytes
+    const byteLength = parseInt(this.data.slice(this.pos, colonPos), 10);
     const start = colonPos + 1;
-    const end = start + length;
+    
+    // Find the end position by incrementally checking byte lengths
+    let end = start;
+    let currentBytes = 0;
+    
+    while (currentBytes < byteLength && end < this.data.length) {
+      // Extract one character at a time and calculate its byte length
+      const char = this.data.charAt(end);
+      currentBytes += getUTF8ByteLength(char);
+      end++;
+    }
+    
     if (end > this.data.length) {
       throw new Error('String length exceeds data');
     }
+    
     this.pos = end;
     return this.data.slice(start, end);
   }
