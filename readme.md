@@ -1,3 +1,5 @@
+[![MseeP.ai Security Assessment Badge](https://mseep.net/pr/johancodinha-nrepl-mcp-server-badge.png)](https://mseep.ai/app/johancodinha-nrepl-mcp-server)
+
 # nREPL MCP Server
 
 A [Model Context Protocol (MCP)](https://github.com/modelcontextprotocol) server designed for MCP clients, such as **Claude Desktop** or **CLine** in VSCode. This server can be used with any LLM when used with CLine. This server enables interaction with a running **Clojure nREPL instance**, allowing evaluation of Clojure code, namespace inspection, and other utilities via MCP.
