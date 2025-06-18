@@ -152,11 +152,9 @@ class NReplMcpServer {
         {
           name: 'eval_form',
           description: 'Evaluate Clojure code in a specific namespace or the current one. Examples:\n' +
-            '- Get current namespace: (eval_form {:code "(str *ns*)"})\n' +
-            '- Change namespace: (eval_form {:code "(+ 1 2)" :ns "my.namespace"})\n' +
-            '- Load a file: (eval_form {:code "(load-file \\"src/my_file.clj\\")"})\n' +
-            '- Define and call functions: (eval_form {:code "(defn add [a b] (+ a b))" :ns "math"} then\n' +
-            '  (eval_form {:code "(add 1 2)" :ns "math"})',
+            '- Define and call a function: {"code": "(defn greet [name] (str \\"Hello, \\" name \\"!\\"))(greet \\"World\\"))"}\n' +
+            '- Reload code: {"code": "(clj-reload.core/reload)"}\n' +
+            '- Evaluate in a specific namespace: {"code": "(clojure.repl.deps/sync-deps)", "ns": "user"}',
           inputSchema: {
             type: 'object',
             properties: {
